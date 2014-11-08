@@ -1,3 +1,8 @@
+// Parecido a Knight Rider pero con pulsadores 
+// para variar la dirección de recorrido de los LEDs.
+// @autor: Edgar Casanova Cardoz
+// @email: ecardoz@idun.com.mx
+
 int pulsador=2; //  Primer pulsador
 int pulsador2=3;//  Segundo pulsador
 
