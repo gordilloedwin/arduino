@@ -1,30 +1,45 @@
-// Contador binario de 4 bits
-// Usa pines analogicos para contar
-//
-// Los pines encienden en efecto 'fade in' y
-// apagan en efecto 'fade out'
+//Pines para LEDs que se moveran
+int pines[]={2,3,4,5,6,7,8,9,10};
 
-//Pines analogicos
-//3, 5, 9, 11
-int pin[]={3,5,9,11};
+int selector=12;
 
+int selector2=13;
+
+int binario=0;
+
+int k=0;
+
+//k=255;
+
+//Configuracion Arduino
 void setup(){
-  //Configuracion de pines como OUTPUT
-  for(int i=0; i<=3; i++){
-    pinMode(pin[i],OUTPUT);
+  
+  //Configuracion de pines en salida
+  for(int i=0; i<=8; i++){
+    pinMode(pines[i], OUTPUT);
   }
+  
+  
+  //selector de modos de LED
+  pinMode(selector, OUTPUT);
+  
+  pinMode(selector2, OUTPUT);
+  
+  Serial.begin(9600);  //Se abre el puerto USB (serie)
 }
 
 void loop(){
-  int i=0, j=0;
-  for(i=0; i<16; i++){
-    for(j=0; j<4; j++){
-      if(((i >> j) & 1) == 1){
-        digitalWrite(pin[j],HIGH);
-      }else{
-        digitalWrite(pin[j],LOW);
-      }
-      delay(500);
+    binario++;
+    if(binario>255){
+      binario=0;
     }
-  }
+    Serial.print("Decimal: ");
+    Serial.println(binario);
+    Serial.println("Presentando numero binario");
+    k=binario;
+    for(int i=2; i<=9; i++){
+      digitalWrite(i,k%2);
+      k=k/2;
+    }
+    delay(1000);
 }
