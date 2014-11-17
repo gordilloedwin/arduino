@@ -16,6 +16,9 @@ int selector2=13;
 //seleccion actual
 int seleccion=0;
 
+//Sentido de los LEDs
+int direccion=0;
+
 //Configuracion Arduino
 void setup(){
   
@@ -42,6 +45,30 @@ void loop(){
   
   if(digitalRead(selector2)==HIGH){
     delay(2000);
+    if(direccion==0){
+      pines[0]=2;
+      pines[1]=3;
+      pines[2]=4;
+      pines[3]=5;
+      pines[4]=6;
+      pines[5]=7;
+      pines[6]=8;
+      pines[7]=9;
+      pines[8]=10;
+      direccion=1;
+    }
+    else{
+      pines[8]=2;
+      pines[7]=3;
+      pines[6]=4;
+      pines[5]=5;
+      pines[4]=6;
+      pines[3]=7;
+      pines[2]=8;
+      pines[1]=9;
+      pines[0]=10;
+      direccion=0;
+    }
   }
   
   if(digitalRead(selector)==HIGH){
