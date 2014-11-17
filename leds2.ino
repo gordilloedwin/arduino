@@ -11,6 +11,8 @@ int pin=11;
 // 3 pulsacion: LEDs(8->0)      funcion: funcionTres();
 int selector=12;
 
+int selector2=13;
+
 //seleccion actual
 int seleccion=0;
 
@@ -31,10 +33,16 @@ void setup(){
   //selector de modos de LED
   pinMode(selector, OUTPUT);
   
+  pinMode(selector2, OUTPUT);
+  
   Serial.begin(9600);  //Se abre el puerto USB (serie)
 }
 
 void loop(){
+  
+  if(digitalRead(selector2)==HIGH){
+    delay(2000);
+  }
   
   if(digitalRead(selector)==HIGH){
     seleccion++;
@@ -66,14 +74,14 @@ void loop(){
     rand = random(2,10);
     Serial.println(rand);
     
-    digitalWrite(pines[rand],HIGH);
-    delay(50);
-    digitalWrite(pines[rand],LOW);
+//    digitalWrite(pines[rand],HIGH);
+//    delay(50);
+//    digitalWrite(pines[rand],LOW);
     //delay(1000);
     
     for(int i=0; i<=rand; i++){
       digitalWrite(pines[i],HIGH);
-      delay(i+1*5);
+      delay(i+1*15);
     }
     for(int j=0; j<=rand; j++){
       digitalWrite(pines[j],LOW);
