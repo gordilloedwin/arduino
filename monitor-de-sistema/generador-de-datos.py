@@ -115,7 +115,7 @@ while a:
 	stream = ""
 	cpus = ""
 
-	usedRam = str(int(round(f.used))/1024)
+	usedRam = str(int(round(f.used_real))/1024)
 	freeRam = str(int(round(f.total-f.used))/1024)
 	perCPU  = psutil.cpu_percent(interval=1, percpu=True)	#Array
 
