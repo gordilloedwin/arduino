@@ -149,8 +149,8 @@ void loop() {
 }
 
 void drawBar(char b1, char b2, char b3, int inicio_barra){
-  char buffer[4];
-  buffer[0] = b1;
+  char buffer[4];  // Las siguientes 4 lineas fueron un autentico problema
+  buffer[0] = b1;  
   buffer[1] = b2;
   buffer[2] = b3;
   buffer[3] = '\0';
