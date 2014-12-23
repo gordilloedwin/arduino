@@ -105,15 +105,8 @@ const unsigned char PROGMEM idun [] = {
 };
 
 int led = 9;
-int len_cadena = 69;
-
-int estado_led = LOW;
-unsigned long previousMillis = 0;
-long Ontime = 200;
-long Offtime = 750;
-
 void setup()   {
-  pinMode(ledPin, OUTPUT);  // declare the ledPin as an OUTPUT
+  pinMode(ledPin, OUTPUT); 
   Serial.begin(9600);
   display.begin();
 
@@ -137,54 +130,33 @@ void loop() {
   display.setTextSize(1);
   display.setCursor(0,0);
   if(Serial.available()){
-      Serial.readBytes(recurso, 69);
-      imprimirTexto(recurso);
-      display.fillRect(72, 40, 22, 7, WHITE);
-      char buffer[4];
-      buffer[0] = recurso[7];
-      buffer[1] = recurso[8];
-      buffer[2] = recurso[9];
-      buffer[3] = '\0';
-      
-      int barra = atoi(buffer);
-
-      Serial.println(barra);
-      barra = barra/5;
-      
-      display.fillRect(60, 0,  barra, 7, BLACK);
-      display.fillRect(60, 8,  20, 7, BLACK);
-      display.fillRect(60, 16, 20, 7, BLACK);
-      display.fillRect(60, 24, 20, 7, BLACK);
-      
+    Serial.readBytes(recurso, 69);
+    imprimirTexto(recurso);
+    
+    display.fillRect(72, 40, 22, 7, WHITE);
+    
+    drawBar(recurso[7], recurso[8], recurso[9], 0);
+    drawBar(recurso[18], recurso[19], recurso[20], 8);
+    drawBar(recurso[29], recurso[30], recurso[31], 16);
+    drawBar(recurso[40], recurso[41], recurso[42], 24);    
     display.display();
-  
-   Serial.end();    // Ends the serial communication once all data is received
-   Serial.begin(9600);
+    Serial.end();    
+    Serial.begin(9600);
   }
+  int p = analogRead(potPin);
+  analogWrite(led,p/5);
+  
 }
 
-void testdrawrect(void) {
-  //for (int16_t i=0; i<display.height()/2; i+=2) {
-    display.drawRect(55, 0, 70, 7, BLACK);
-    //display.display();
-  //}
-}
-
-void blinke(){
-  unsigned long currentMillis = millis();
-  
-  if((estado_led == HIGH) && (currentMillis - previousMillis >= Ontime))
-  {
-    estado_led = LOW; // Turn it off
-    previousMillis = currentMillis; // Remember the time
-    analogWrite(11,0);
-  }
-  else if ((estado_led == LOW) && (currentMillis - previousMillis >= Offtime))
-  {
-    estado_led = HIGH; // turn it on
-    previousMillis = currentMillis; // Remember the time
-    analogWrite(11,val/6);
-  }
+void drawBar(char b1, char b2, char b3, int inicio_barra){
+  char buffer[4];
+  buffer[0] = b1;
+  buffer[1] = b2;
+  buffer[2] = b3;
+  buffer[3] = '\0';
+  int b = atoi(buffer);
+  b = b/5;
+  display.fillRect(60, inicio_barra,  b, 7, BLACK);
 }
 
 void screensplash(){
@@ -194,26 +166,6 @@ void screensplash(){
   display.display();
   delay(500);
   display.clearDisplay();
-}
-
-
-void record(String a, int r, char ram[]){
-  display.clearDisplay();
-  display.setTextSize(1);
-  display.setCursor(0,0);
-  int i=0;
-  String msg = String("[");
-  msg += (r*2);
-  msg += "%]\n";
-  msg += a;
-  String points = String(".");
-  for(i=1; i<=(r/4); i++){
-        msg += points;
-  }
-  msg += "\n";
-  msg = msg + ram;
-  display.println(msg);
-  display.display();
 }
 
 void imprimirTexto(char txt[]){
