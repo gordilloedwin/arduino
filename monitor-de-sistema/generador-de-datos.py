@@ -92,7 +92,6 @@ class FreeMemLinux(object):
     def swap_used(self):
         return self._convert * self._swapu
 
-#sleep(3)
 print "Iniciando... "
 sleep(2)
 print "En 3..."
@@ -112,15 +111,7 @@ while a:
 	freeRam = str(int(round(f.total-f.used))/1024)
 	perCPU  = psutil.cpu_percent(interval=1, percpu=True)	#Array
 
-	#puerto.write("1")
-	print "1"
-	#puerto.write(str(len(perCPU)))
-	print "Cantidad de procesadores logicos: " + str(len(perCPU))
-	#print "----"
 	for i in range(len(perCPU)):
-		#puerto.write(str(len(perCPU)))
-		#puerto.write(str(perCPU[i])) #Valor de CPU
-		print "Procesador " + str(i) + ": " + str(perCPU[i])
 		stream += "CPU " + str(i) + ":"
 		if perCPU[i]<100:
 			if perCPU[i]<10:
@@ -150,12 +141,4 @@ while a:
 		else:
 		 	stream += " "
 	stream += freeRam + "MB" + "\0"
-
-	print "----"
-	print len(stream)
-	print "----"
-	print stream
 	puerto.write(stream)
-	print "----"
-	#sleep(2)
-
