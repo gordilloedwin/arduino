@@ -1,3 +1,11 @@
+#
+# Adapted by Edgar Casanova Cardoz - Diciembre 2014
+# ecardoz@idun.com.mx
+# http://idun.com.mx
+#
+# Genera un STREAM para el puerto Serial con datos de
+# monitoreo del sistema.
+
 # Comunicacion con el puerto serial
 # Se envian datos a la placa Arduino
 from time import sleep
